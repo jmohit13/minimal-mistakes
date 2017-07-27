@@ -3,7 +3,7 @@ main:
   - title: "Projects"
     url: /projects
   - title: "Blog"
-    url: /blog
+    url: /blog/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
