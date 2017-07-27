@@ -18,7 +18,7 @@ teaser                   : "/assets/images/banner-default.jpg"
 breadcrumbs              : true
 words_per_minute         : 200
 comments:
-  provider               : "disqus",
+  provider               : "disqus"
   disqus:
     shortname            : "https-jmohit13-github-io"
   discourse:
@@ -241,6 +241,6 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
