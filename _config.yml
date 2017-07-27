@@ -12,8 +12,8 @@ title_separator          : "-"
 name                     : "Jain Mohit"
 description              : "Data Science, NLP, Big data blogs"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "/resume"
-repository               : "jmohit13/resume"
+baseurl                  : "/reflections"
+repository               : "jmohit13/reflections"
 teaser                   : "/assets/images/banner-default.jpg"
 breadcrumbs              : true
 words_per_minute         : 200
