@@ -361,10 +361,4 @@ plt.show()
 {% endhighlight %}
 ![mse1]({{ site.url }}/reflections/assets/images/201707271.png)
 
-{% highlight python linenos %}
-
-{% endhighlight %}
-
-{% highlight python linenos %}
-
-{% endhighlight %}
+You just used your error to update the model. This is called back propogation. Now since you have a solid understanding of neural network, you can code this using keras with couple of lines. Recently Geoff hinton criticise his work by saying "throw it away and start all over again" in search of AI that actually learn like humans with no labels with less examples. Synthetic gradients, used by [deep mind](https://deepmind.com/){:target="_blank"}  to compute the loss function is also worth taking a look. 
