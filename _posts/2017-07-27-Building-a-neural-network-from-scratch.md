@@ -103,7 +103,7 @@ for input_data_row in input_data:
 print(results)
 {% endhighlight %}
 
-Let try to build a neural network with two hidden layers each containing two nodes.
+Let try to build a neural network with two hidden layers each containing two nodes. In deeper architectures, it is generally the last layer that captures the most complex interactions.
 
 {% highlight python linenos %}
 input_data = np.array([3, 5])
@@ -144,3 +144,136 @@ print(output)
 # The network generated a prediction of 364
 {% endhighlight %}
 
+Let now see how changing the weights will affect our output.
+
+{% highlight python linenos %}
+# Calculating model errors
+# Coding how weight changes affect accuracy
+
+# The data point you will make a prediction for
+input_data = np.array([0, 3])
+
+# Sample weights
+weights_0 = {'node_0': [2, 1],
+             'node_1': [1, 2],
+             'output': [1, 1]
+            }
+# Define predict_with_network()
+def predict_with_network(input_data_row, weights):
+
+    # Calculate node 0 value
+    node_0_input = (input_data_row * weights['node_0']).sum()
+    node_0_output = relu(node_0_input)
+
+    # Calculate node 1 value
+    node_1_input = (input_data_row * weights['node_1']).sum()
+    node_1_output = relu(node_1_input)
+
+    # Put node values into array: hidden_layer_outputs
+    hidden_layer_outputs = np.array([node_0_output, node_1_output])
+    
+    # Calculate model output
+    input_to_final_layer = (hidden_layer_outputs * weights['output']).sum()
+    model_output = relu(input_to_final_layer)
+    
+    # Return model output
+    return(model_output)
+
+# The actual target value, used to calculate the error
+target_actual = 3
+
+# Make prediction using original weights
+model_output_0 = predict_with_network(input_data, weights_0)
+
+# Calculate error: error_0
+error_0 = model_output_0 - target_actual
+
+# Create weights that cause the network to make perfect prediction (3): weights_1
+weights_1 = {'node_0': [2, 1],
+             'node_1': [1, 2],
+             'output': [-1, 1]
+            }
+
+# Make prediction using new weights: model_output_1
+model_output_1 = predict_with_network(input_data, weights_1)
+
+# Calculate error: error_1
+error_1 = model_output_1 - target_actual
+
+# Print error_0 and error_1
+print(error_0)
+print(error_1)
+# The network now generates a perfect prediction with an error of 0.
+{% endhighlight %}
+
+Let now do it for multiple data points
+
+{% highlight python linenos %}
+# Scaling up to multiple data points
+input_data = np.array([[0, 3], [1, 2], [-1, -2], [4, 0]])
+
+weights_0 = {'node_0': np.array([2, 1]), 'node_1': np.array([1, 2]), 'output': np.array([1, 1])}
+weights_1 = {'node_0': np.array([2, 1]), 'node_1': np.array([ 1. ,  1.5]), 'output': np.array([ 1. ,  1.5])}
+
+target_actuals = [1, 3, 5, 7] 
+
+#from sklearn.metrics import mean_squared_error
+
+# Create model_output_0 
+model_output_0 = []
+# Create model_output_0
+model_output_1 = []
+
+# Loop over input_data
+for row in input_data:
+    # Append prediction to model_output_0
+    model_output_0.append(predict_with_network(row, weights_0))
+    
+    # Append prediction to model_output_1
+    model_output_1.append(predict_with_network(row, weights_1))
+
+
+# Calculate the mean squared error for model_output_0: mse_0
+mse_0 = mean_squared_error(target_actuals, model_output_0)
+
+# Calculate the mean squared error for model_output_1: mse_1
+mse_1 = mean_squared_error(target_actuals, model_output_1)
+
+# Print mse_0 and mse_1
+print("Mean squared error with weights_0: %f" %mse_0)
+print("Mean squared error with weights_1: %f" %mse_1)
+# It looks like model_output_1 has a higher mean squared error.
+{% endhighlight %}
+
+We just saw how changing weights can change our output. A loss function generally aggregates all the errors and gives us a single value. In regression problems, we use mse, rmse, mape to compute the error. The algorithm to do this is called Gradient Descent. It will give us the set of weights that gives the lowest error. Mathematically, we move in direction opposite to the slope(derivative) of tangent, this captures the slope of our loss function, so its called gradient descent. It allows us to move slowly in a direction where the loss is the minimum. Now we will see how to compute the slope of a set of data points.
+
+{% highlight python linenos %}
+# Calculating slopes 
+# 1) slope of loss function wrt value at node we feed into 
+# 2) value of node that feeds into weight 
+# 3) slope of activation function wrt value we feed into
+# When plotting the mean-squared error loss function against predictions, the slope is 2 * x * (y-xb), or 2 * input_data * error. 
+# Note that x and b may have multiple numbers (x is a vector for each data point, and b is a vector)
+
+weights = np.array([0,2,1])
+input_data = np.array([1,2,3])
+target = 0
+
+# Calculate the predictions: preds
+preds = (weights * input_data).sum()
+
+# Calculate the error: error
+error = preds - target
+
+# Calculate the slope: slope
+slope = 2 * input_data * error
+
+# Print the slope
+print(slope)
+# This slope can be used to improve the weights of the model.
+{% endhighlight %}
+
+
+{% highlight python linenos %}
+
+{% endhighlight %}
