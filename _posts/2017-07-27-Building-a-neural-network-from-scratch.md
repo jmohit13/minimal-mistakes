@@ -359,7 +359,7 @@ plt.ylabel('Mean Squared Error')
 plt.show()
 # As you can see, the mean squared error decreases as the number of iterations go up.
 {% endhighlight %}
-![useful image]({{ site.url }}/assets/201707271.png)
+![mse1]({{ site.url }}/reflections/assets/images/201707271.png)
 
 {% highlight python linenos %}
 
