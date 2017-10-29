@@ -9,6 +9,7 @@ tags:
 ---
 
 ### Code your neural network today in python from scratch
+We will build a neural network from scratch and its different components like forward propogarion, gradient descent, back propogation. Fire up your favourite editor and start your journey to the world of neural nets.
 
 {% highlight python linenos %}
 # Coding the forward propagation algorithm
@@ -273,6 +274,96 @@ print(slope)
 # This slope can be used to improve the weights of the model.
 {% endhighlight %}
 
+Lets use the slope calculated to update our model weights. The learning rate tells us how fast or slow we move towards the lowest error point. This is also one of the hyperparameter to be tuned for good performance. 
+
+{% highlight python linenos %}
+# Improving model weights
+weights = np.array([0, 2, 1])
+input_data = np.array([1,2,3])
+target = 0
+
+# Set the learning rate: learning_rate
+learning_rate = 0.01
+
+# Calculate the predictions: preds
+preds = (weights * input_data).sum()
+
+# Calculate the error: error
+error = preds - target
+
+# Calculate the slope: slope
+slope = 2 * input_data * error
+
+# Update the weights: weights_updated
+weights_updated = weights - slope * learning_rate
+
+# Get updated predictions: preds_updated
+preds_updated = (weights_updated * input_data).sum()
+
+# Calculate updated error: error_updated
+error_updated = preds_updated - target
+
+# Print the original error
+print(error)
+
+# Print the updated error
+print(error_updated)
+# Updating the model weights did decrease the error.
+{% endhighlight %}
+
+Let clean up our code and build functions to compute slope, error and weight updates. And lets see how multiple weight updates improve the mean squared error.
+
+{% highlight python linenos %}
+# Making multiple updates to weights
+def get_slope(input_data, target, weights):
+    preds = (weights * input_data).sum()
+    error = preds - target
+    slope = 2 * input_data * error    
+    return slope
+
+def get_mse(input_data, target, weights):
+    learning_rate = 0.01
+    preds = (weights * input_data).sum()
+    error = preds - target
+    slope = 2 * input_data * error
+    weights_updated = weights - slope * learning_rate
+    preds_updated = (weights_updated * input_data).sum()
+    error_updated = preds_updated - target
+    return error_updated
+
+weights = np.array([0, 2, 1])
+input_data = np.array([1,2,3])
+target = 0
+
+n_updates = 20
+mse_hist = []
+
+# Iterate over the number of updates
+for i in range(n_updates):
+    # Calculate the slope: slope
+    slope = get_slope(input_data, target, weights)
+    
+    # Update the weights: weights
+    weights = weights - 0.01 * slope
+    
+    # Calculate mse with new weights: mse
+    mse = get_mse(input_data, target, weights)
+    #print("iteration {}, weights {}, mse {}".format(i, weights, mse))
+    # Append the mse to mse_hist
+    mse_hist.append(mse)
+
+# Plot the mse history
+plt.plot(mse_hist)
+plt.xlabel('Iterations')
+plt.ylabel('Mean Squared Error')
+plt.show()
+# As you can see, the mean squared error decreases as the number of iterations go up.
+{% endhighlight %}
+![useful image]({{ site.url }}/assets/201707271.png)
+
+{% highlight python linenos %}
+
+{% endhighlight %}
 
 {% highlight python linenos %}
 
