@@ -8,7 +8,7 @@ tags:
   - python
 ---
 
-### Code your neural network today in python from scratch
+### Code your neural network in python from scratch
 We will build a neural network from scratch and its different components like forward propogarion, gradient descent, back propogation. Fire up your favourite editor and start your journey to the world of neural nets.
 
 {% highlight python linenos %}
